@@ -1,0 +1,37 @@
+<div class="container mt-4">
+  <h2>Lista de Itens</h2>
+
+  <div class="mb-3">
+    <!-- O routerLink para '/items/new' será implementado quando criarmos o formulário -->
+    <a routerLink="/item/new" class="btn btn-success">Adicionar Novo Item</a>
+  </div>
+
+  <div *ngIf="items.length === 0; else itemsTable" class="alert alert-info">
+    Nenhum item encontrado.
+  </div>
+
+  <ng-template #itemsTable>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Descrição</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items">
+          <td>{{ item.id }}</td>
+          <td>{{ item.name }}</td>
+          <td>{{ item.description }}</td>
+          <td>
+            <!-- O routerLink para '/items/edit/:id' será implementado quando criarmos o formulário -->
+            <a [routerLink]="['/item/edit', item.id]" class="btn btn-primary btn-sm me-2">Editar</a>
+            <button (click)="deleteItem(item.id)" class="btn btn-danger btn-sm">Deletar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-template>
+</div>

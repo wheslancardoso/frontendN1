@@ -1,0 +1,44 @@
+<div class="container mt-4">
+  <h2>{{ isEditMode ? 'Editar Item' : 'Novo Item' }}</h2>
+
+  <form (ngSubmit)="saveItem()" #itemForm="ngForm">
+    <div class="mb-3">
+      <label for="name" class="form-label">Nome:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        required
+        [(ngModel)]="item.name"
+        name="name"
+        #name="ngModel"
+        [ngClass]="{ 'is-invalid': name.invalid && (name.dirty || name.touched) }"
+      />
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="invalid-feedback">
+        <div *ngIf="name.errors?.['required']">O nome é obrigatório.</div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Descrição:</label>
+      <textarea
+        class="form-control"
+        id="description"
+        rows="3"
+        [(ngModel)]="item.description"
+        name="description"
+        #description="ngModel"
+      ></textarea>
+      <!-- Você pode adicionar validação para a descrição se necessário -->
+    </div>
+
+    <div class="mt-3">
+      <button type="submit" class="btn btn-primary me-2" [disabled]="!itemForm.form.valid">
+        {{ isEditMode ? 'Atualizar' : 'Salvar' }}
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="goBack()">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>
